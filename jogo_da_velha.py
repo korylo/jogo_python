@@ -1,14 +1,18 @@
 # Example file showing a basic pygame "game loop"
 import pygame
 
-# pygame setup
-pygame.init()
+# pygame configuração
+pygame.init()#inicialização do pygame
+pygame.font.init() #inicialização do pacote de fonte no pygame
 screen = pygame.display.set_mode((500, 500))
 pygame.display.set_caption("jogo da velha")
-clock = pygame.time.Clock()
+clock = pygame.time.Clock()#biblioteca de tempo
+
+fonte_quadrinhos = pygame.font.SysFont('Comic Sans Ms',100) #importando fontes
 running = True
-#cor_fundo = 1 #azul
-cor_fundo = 2 #vermelho
+personagem_X = fonte_quadrinhos.render('X',True, 'red')
+personagem_Y = fonte_quadrinhos.render('O',True, 'red')
+cor_fundo = 1
 
 while running:
     # poll for events
@@ -24,16 +28,18 @@ while running:
         
         
     if cor_fundo == 1:
-        screen.fill('blue')
+        screen.fill('black')
+        screen.blit (personagem_X,(250,250))
     elif cor_fundo == 2:
-        screen.fill('red')
+        screen.fill('black')
+        screen.blit (personagem_Y,(250,250))
     else:
         screen.fill('purple')  
               
 
-    # flip() the display to put your work on screen
+    # flip() the display para atualiza a pagina 
     pygame.display.flip()
 
-    clock.tick(60)  # limits FPS to 60
+    clock.tick(60)  # limits FPS para  60
 
 pygame.quit()
