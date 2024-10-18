@@ -30,28 +30,21 @@ while running: # O whileé usado para repetir um bloco de código enquanto uma c
 
         if event.type == pygame.QUIT: #Detectar quando o usuário tenta fechar uma janela do jogo.
             #Permite que você responda a esse evento encerrando o loop principal e fechando o jogo de forma adequada.
-
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN: # pressionar uma tecla, mover o mouse, ou um clique do mouse)
             print('Clicou')#é um comando que exibe a mensagem "Clicou" no console ou na saída padrão do programa.
             cor_fundo += 1
         if cor_fundo > 3: # é uma condição que verifica se o valor da variável `cor_fundo` é maior que 3. 
             cor_fundo = 1
-
-    
-    if cor_fundo == 1:#uma estrutura condicional que executa um bloco de código se a condição especificada for verdadeira. 
-        #Neste caso, ele verifica se `cor_fundo` é igual a `1`. 2.
-
-        screen.fill('blue')  #  preenche toda a superfície da tela com uma cor específica. azul
-
-        screen.blit(personagem_x, (250, 250))  # para desenhar uma superfície (como uma imagem ou texto) na tela. Desenha "X" 
-
-    elif cor_fundo == 2:# Verifique se `cor_fundo` é igual a ` 2` para determinar a ação a ser tomada. 
-
-        screen.fill('blue')  # Preenche com azul
-        screen.blit(personagem_y, (250, 250))  # # para desenhar uma superfície (como uma imagem ou texto) na tela. Desenha "0"
-    else:
-        screen.fill('purple')  ##  preenche toda a superfície da tela com uma cor específica.rosa
+      #                              (x)  (y)  (x)  (y)
+    pygame.draw.line(screen, 'white',(200, 0),(200, 600),10)
+    pygame.draw.line(screen, 'white',(400, 0),(400, 600),10)
+    pygame.draw.line(screen, 'white',(0, 200),(600, 200),10)
+    pygame.draw.line(screen, 'white',(0, 400),(600, 400),10)
+     #                       (x),(y)
+    screen.blit(personagem_x,(60,30)) #primario
+    screen.blit(personagem_y,(260,30)) #segundario
+    screen.blit(personagem_y,(460,30)) #terceiro
 
     # ara atualizar a tela do jogo com todas as alterações que foram feitas desde a última atualização.
     pygame.display.flip()
