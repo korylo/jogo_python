@@ -4,7 +4,7 @@ import pygame  # importa a biblioteca
 pygame.init()  # inicialização do pygame
 pygame.font.init()  # inicialização do pacote de fontes no pygame
 
-screen = pygame.display.set_mode((500, 500)) #Essa função configura a janela onde o jogo será exibido.
+screen = pygame.display.set_mode((600, 600)) #Essa função configura a janela onde o jogo será exibido.
 pygame.display.set_caption('jogo da Velha ') #Esta função altera o título da janela que é exibida na barra de título do aplicativo.
 clock = pygame.time.Clock() # Esse objeto é usado para gerenciar o tempo no seu jogo, permitindo que você controle a velocidade de atualização da tela.
 
@@ -20,8 +20,10 @@ running = True  #A variável `running` é usada como uma condição para determi
 # cria uma superfície de imagem a partir do texto que você deseja exibir na tela."X" e "0"
 personagem_x = fonte_quadrinhos.render('X', True, 'red')
 personagem_y = fonte_quadrinhos.render('0', True, 'red')
-cor_fundo = 1 # a inicializa com o valor `1`. Essa variável é geralmente usada para controlar o fundo da tela em um jogo, 
+apresenta_personagem = 0 # a inicializa com o valor `1`. Essa variável é geralmente usada para controlar o fundo da tela em um jogo, 
 #permitindo a alternância entre diferentes núcleos
+x = 0
+y = 0
 
 while running: # O whileé usado para repetir um bloco de código enquanto uma condição é verdadeira.  
 
@@ -33,18 +35,47 @@ while running: # O whileé usado para repetir um bloco de código enquanto uma c
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN: # pressionar uma tecla, mover o mouse, ou um clique do mouse)
             print('Clicou')#é um comando que exibe a mensagem "Clicou" no console ou na saída padrão do programa.
-            cor_fundo += 1
-        if cor_fundo > 3: # é uma condição que verifica se o valor da variável `cor_fundo` é maior que 3. 
-            cor_fundo = 1
+            click_pos =pygame.mouse.get_pos()#a posiçao do mouse quando ouver evento de click
+            print("eixo x:",click_pos[0])
+            print("eixo y:",click_pos[1])
+            x = click_pos[0]
+            y = click_pos[1]
+            apresenta_personagem = apresenta_personagem + 1
+            if(apresenta_personagem >= 10) : # é uma condição que verifica se o valor da variável `cor_fundo` é maior que 3. 
+                screen.fill('black')
+                apresenta_personagem = 0
       #                              (x)  (y)  (x)  (y)
     pygame.draw.line(screen, 'white',(200, 0),(200, 600),10)
     pygame.draw.line(screen, 'white',(400, 0),(400, 600),10)
     pygame.draw.line(screen, 'white',(0, 200),(600, 200),10)
     pygame.draw.line(screen, 'white',(0, 400),(600, 400),10)
-     #                       (x),(y)
-    screen.blit(personagem_x,(60,30)) #primario
-    screen.blit(personagem_y,(260,30)) #segundario
-    screen.blit(personagem_y,(460,30)) #terceiro
+
+    #primario linha
+     #  
+    if x > 0 and x < 200 and y < 200:  # (x),(y)
+        screen.blit(personagem_x,(60,30)) #primario
+    elif x >= 200 and x < 400 and y < 200:   
+        screen.blit(personagem_y,(260,30)) #segundario
+    elif x >= 400 and y < 200:   
+        screen.blit(personagem_y,(460,30)) #terceiro
+
+    #segundario linha
+    #
+    elif x < 200 and y >= 200 and y <400:
+        screen.blit(personagem_x,(60,230)) #quarto
+    elif x >= 200 and x < 400 and y >= 200 and y < 400:   
+        screen.blit(personagem_y,(260,230)) #quinto
+    elif x >= 400 and y >= 200 and y < 400:     
+        screen.blit(personagem_y,(460,230)) #sexto
+
+     #terceiro linha
+    #
+    elif x < 200 and y >= 400:
+        screen.blit(personagem_x,(60,430)) #setimo
+    elif x >= 200 and x < 400 and y >= 400: 
+        screen.blit(personagem_y,(260,430)) #oitavo
+    elif x >= 400 and y >= 400:       
+        screen.blit(personagem_y,(460,430)) #nono
 
     # ara atualizar a tela do jogo com todas as alterações que foram feitas desde a última atualização.
     pygame.display.flip()
