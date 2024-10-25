@@ -19,11 +19,14 @@ running = True  #A variável `running` é usada como uma condição para determi
 
 # cria uma superfície de imagem a partir do texto que você deseja exibir na tela."X" e "0"
 personagem_x = fonte_quadrinhos.render('X', True, 'red')
-personagem_y = fonte_quadrinhos.render('0', True, 'red')
-apresenta_personagem = 0 # a inicializa com o valor `1`. Essa variável é geralmente usada para controlar o fundo da tela em um jogo, 
+personagem_o = fonte_quadrinhos.render('0', True, 'red')
+
+jogador_atual = personagem_x #inicializa o jogo com o x.
+
+rodadas = 0 # a inicializa com o valor `1`. Essa variável é geralmente usada para controlar o fundo da tela em um jogo, 
 #permitindo a alternância entre diferentes núcleos
-x = 0
-y = 0
+coordenada_x = 0
+coordenada_y = 0
 
 while running: # O whileé usado para repetir um bloco de código enquanto uma condição é verdadeira.  
 
@@ -38,12 +41,25 @@ while running: # O whileé usado para repetir um bloco de código enquanto uma c
             click_pos =pygame.mouse.get_pos()#a posiçao do mouse quando ouver evento de click
             print("eixo x:",click_pos[0])
             print("eixo y:",click_pos[1])
-            x = click_pos[0]
-            y = click_pos[1]
-            apresenta_personagem = apresenta_personagem + 1
-            if(apresenta_personagem >= 10) : # é uma condição que verifica se o valor da variável `cor_fundo` é maior que 3. 
+            coordenada_x = click_pos[0]
+            coordenada_y = click_pos[1]
+            rodadas =rodadas + 1
+            if(rodadas >= 10) : 
                 screen.fill('black')
-                apresenta_personagem = 0
+                rodadas = 0
+                coordenada_x = 0
+                coordenada_y = 0
+            
+
+            if rodadas !=1:    
+                if(jogador_atual == personagem_x):
+                    jogador_atual = personagem_o 
+                else:
+                    jogador_atual =personagem_x 
+            else:
+                jogadador_atual =personagem_x    
+
+
       #                              (x)  (y)  (x)  (y)
     pygame.draw.line(screen, 'white',(200, 0),(200, 600),10)
     pygame.draw.line(screen, 'white',(400, 0),(400, 600),10)
@@ -52,30 +68,31 @@ while running: # O whileé usado para repetir um bloco de código enquanto uma c
 
     #primario linha
      #  
-    if x > 0 and x < 200 and y < 200:  # (x),(y)
-        screen.blit(personagem_x,(60,30)) #primario
-    elif x >= 200 and x < 400 and y < 200:   
-        screen.blit(personagem_y,(260,30)) #segundario
-    elif x >= 400 and y < 200:   
-        screen.blit(personagem_y,(460,30)) #terceiro
+    if coordenada_x > 0 and coordenada_x < 200 and coordenada_y < 200:  # (x),(y)
+       screen.blit(jogador_atual,(60,30)) #primario
+    elif coordenada_x >= 200 and coordenada_x < 400 and coordenada_y < 200:   
+        screen.blit(jogador_atual,(260,30)) #segundario
+    elif coordenada_x >= 400 and coordenada_y < 200:   
+        screen.blit(jogador_atual,(460,30)) #terceiro
 
     #segundario linha
     #
-    elif x < 200 and y >= 200 and y <400:
-        screen.blit(personagem_x,(60,230)) #quarto
-    elif x >= 200 and x < 400 and y >= 200 and y < 400:   
-        screen.blit(personagem_y,(260,230)) #quinto
-    elif x >= 400 and y >= 200 and y < 400:     
-        screen.blit(personagem_y,(460,230)) #sexto
+    elif coordenada_x < 200 and coordenada_y >= 200 and coordenada_y <400:
+        screen.blit(jogador_atual,(60,230)) #quarto
+    elif coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 200 and coordenada_y < 400:   
+        screen.blit(jogador_atual,(260,230)) #quinto
+    elif coordenada_x >= 400 and coordenada_y >= 200 and coordenada_y < 400:     
+        screen.blit(jogador_atual,(460,230)) #sexto
 
      #terceiro linha
     #
-    elif x < 200 and y >= 400:
-        screen.blit(personagem_x,(60,430)) #setimo
-    elif x >= 200 and x < 400 and y >= 400: 
-        screen.blit(personagem_y,(260,430)) #oitavo
-    elif x >= 400 and y >= 400:       
-        screen.blit(personagem_y,(460,430)) #nono
+    elif coordenada_x < 200 and coordenada_y >= 400:
+        screen.blit(jogador_atual,(60,430)) #setimo
+    elif coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 400: 
+        screen.blit(jogador_atual,(260,430)) #oitavo
+    elif coordenada_x >= 400 and coordenada_y >= 400:       
+        screen.blit(jogador_atual,(460,430)) #nono
+      
 
     # ara atualizar a tela do jogo com todas as alterações que foram feitas desde a última atualização.
     pygame.display.flip()
