@@ -23,51 +23,23 @@ personagem_o = fonte_quadrinhos.render('0', True, 'red')
 
 jogador_atual = personagem_x #inicializa o jogo com o x.
 
-rodadas = 0 # a inicializa com o valor `1`. Essa variável é geralmente usada para controlar o fundo da tela em um jogo, 
-#permitindo a alternância entre diferentes núcleos
+rodadas = 0 
+tabuleiro_desenhado = False
 coordenada_x = 0
 coordenada_y = 0
 
-while running: # O whileé usado para repetir um bloco de código enquanto uma condição é verdadeira.  
+def desenha_tabuleiro(espessura,cor):
 
-    for event in pygame.event.get():# Esta função retorna uma lista de todos os eventos que ocorreram desde a última vez que você chamou essa função. 
-        #Isso inclui eventos como cliques de mouse, teclas pressionadas, movimentos de mouse e comandos de fechamento de janela.
+    
+    
+    
+     # desenha tabuleiro             (x)  (y)  (x)  (y)
+    pygame.draw.line(screen, 'yellow',(200, 0),(200, 600),espessura)
+    pygame.draw.line(screen, 'yellow',(400, 0),(400, 600),espessura)
+    pygame.draw.line(screen, 'yellow',(0, 200),(600, 200),espessura)
+    pygame.draw.line(screen, 'yellow',(0, 400),(600, 400),espessura)
 
-        if event.type == pygame.QUIT: #Detectar quando o usuário tenta fechar uma janela do jogo.
-            #Permite que você responda a esse evento encerrando o loop principal e fechando o jogo de forma adequada.
-            running = False
-        if event.type == pygame.MOUSEBUTTONDOWN: # pressionar uma tecla, mover o mouse, ou um clique do mouse)
-            print('Clicou')#é um comando que exibe a mensagem "Clicou" no console ou na saída padrão do programa.
-            click_pos =pygame.mouse.get_pos()#a posiçao do mouse quando ouver evento de click
-            print("eixo x:",click_pos[0])
-            print("eixo y:",click_pos[1])
-            coordenada_x = click_pos[0]
-            coordenada_y = click_pos[1]
-            rodadas =rodadas + 1
-            if(rodadas >= 10) : 
-                screen.fill('black')
-                rodadas = 0
-                coordenada_x = 0
-                coordenada_y = 0
-            
-
-            if rodadas !=1:    
-                if(jogador_atual == personagem_x):
-                    jogador_atual = personagem_o 
-                else:
-                    jogador_atual =personagem_x 
-            else:
-                jogadador_atual =personagem_x    
-
-
-      #                              (x)  (y)  (x)  (y)
-    pygame.draw.line(screen, 'white',(200, 0),(200, 600),10)
-    pygame.draw.line(screen, 'white',(400, 0),(400, 600),10)
-    pygame.draw.line(screen, 'white',(0, 200),(600, 200),10)
-    pygame.draw.line(screen, 'white',(0, 400),(600, 400),10)
-
-    #primario linha
-     #  
+def faz_jogada():    
     if coordenada_x > 0 and coordenada_x < 200 and coordenada_y < 200:  # (x),(y)
        screen.blit(jogador_atual,(60,30)) #primario
     elif coordenada_x >= 200 and coordenada_x < 400 and coordenada_y < 200:   
@@ -92,6 +64,50 @@ while running: # O whileé usado para repetir um bloco de código enquanto uma c
         screen.blit(jogador_atual,(260,430)) #oitavo
     elif coordenada_x >= 400 and coordenada_y >= 400:       
         screen.blit(jogador_atual,(460,430)) #nono
+
+while running: # codigo principal. 
+
+    for event in pygame.event.get():# Esta função retorna uma lista de todos os eventos que ocorreram desde a última vez que você chamou essa função. 
+        #Isso inclui eventos como cliques de mouse, teclas pressionadas, movimentos de mouse e comandos de fechamento de janela.
+    
+
+        if event.type == pygame.QUIT: #Detectar quando o usuário tenta fechar uma janela do jogo.
+            #Permite que você responda a esse evento encerrando o loop principal e fechando o jogo de forma adequada.
+            running = False
+        if event.type == pygame.MOUSEBUTTONDOWN: # pressionar uma tecla, mover o mouse, ou um clique do mouse)
+            print('Clicou')#é um comando que exibe a mensagem "Clicou" no console ou na saída padrão do programa.
+            click_pos =pygame.mouse.get_pos()#a posiçao do mouse quando ouver evento de click
+            print("eixo x:",click_pos[0])
+            print("eixo y:",click_pos[1])
+            coordenada_x = click_pos[0]
+            coordenada_y = click_pos[1]
+            rodadas =rodadas + 1
+            if(rodadas >= 10) : 
+                screen.fill('black')
+                rodadas = 0
+                coordenada_x = 0
+                coordenada_y = 0
+                tabuleiro_desenhado =False
+            
+
+            if rodadas !=1:    
+                if(jogador_atual == personagem_x):
+                    jogador_atual = personagem_o 
+                else:
+                    jogador_atual =personagem_x 
+            else:
+                jogadador_atual =personagem_x  
+            faz_jogada()
+
+    if tabuleiro_desenhado == False:   
+        desenha_tabuleiro(10,'yellow')
+        tabuleiro_desenhado = True
+
+    
+     
+    #primario linha
+     #  
+    
       
 
     # ara atualizar a tela do jogo com todas as alterações que foram feitas desde a última atualização.
