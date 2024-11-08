@@ -83,10 +83,10 @@ def faz_jogada():
     #
     elif q7 ==''and coordenada_x < 200 and coordenada_y >= 400:
         screen.blit(jogador_atual,(60,430)) #setimo
-        q7 == jogador_atual
+        q7 = jogador_atual
     elif q8 ==''and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 400: 
         screen.blit(jogador_atual,(260,430)) #oitavo
-        q8 == jogador_atual
+        q8 = jogador_atual
     elif q9 ==''and coordenada_x >= 400 and coordenada_y >= 400:       
         screen.blit(jogador_atual,(460,430)) #nono
         q9 = jogador_atual
@@ -101,7 +101,7 @@ def check_vencedor():
         status =True
         
     elif q4 == q5 == q6 != "":
-        pygame.draw.line(screen, 'yellow',(50, 300),(550, 300),10)
+          pygame.draw.line(screen, 'yellow',(50, 300),(550, 300),10)
         status =True
         
     elif q7 == q8 == q9 != "":
@@ -111,23 +111,25 @@ def check_vencedor():
 
     #colunas
     elif q1 == q4 == q7 != "":
-        pygame.draw.line(screen, 'yellow',(100, 500),(300, 500),10)
+        pygame.draw.line(screen, 'yellow',(100, 50),(100, 550),10)
         status =True
         
     elif q2 == q5 == q8 != "":
-        pygame.draw.line(screen, 'yellow',(100, 200),(300, 200),10)
+        pygame.draw.line(screen, 'yellow',(300, 50),(300, 550),10)
         status =True
         
     elif q3 == q6 == q9 != "":
-        pygame.draw.line(screen, 'yellow',(100, 500),(300, 500),10)
+        pygame.draw.line(screen, 'yellow',(500, 50),(500, 550),10)
         status =True
           
 
     #diagonais 
     elif q1 == q5 == q9 != "":
+        pygame.draw.line(screen, 'yellow',(50, 50),(550, 550),10)
         status =True
         
     elif q3 == q5 == q7 != "":
+        pygame.draw.line(screen, 'yellow',(550, 50),(50, 550),10)
         status =True
     return status
         
